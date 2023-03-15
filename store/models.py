@@ -9,9 +9,8 @@ class Promotion(models.Model):
     
     
 class Collection(models.Model):
-    title = models.CharField(max_length=255) #Product in"Product" resolves circular dependencies"
+    title = models.CharField(max_length=255)
     featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
-    #Fixing related name asssociated Errors
     
 
 class Product(models.Model):
@@ -36,7 +35,7 @@ class Customer(models.Model):
          (MEMBERSHIP_GOLD , 'Gold'),
      ]
      
-     given_name = models.CharField(max_length=255)
+     first_name = models.CharField(max_length=255)
      last_name = models.CharField(max_length=255)
      email = models.EmailField(unique=True)
      phone = models.CharField(max_length=255)
