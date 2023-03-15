@@ -28,14 +28,25 @@ def index(request):
     
     
     #customer = Customer.objects.order_by('email')
+    
     #customer = Customer.objects.earliest('phone')
     
     #queryset = Customer.objects.all()[:25]
+    
     #queryset = Customer.objects.values('id', 'first_name')[:25]
     
-    queryset = Customer.objects.only('id', 'last_name')[:25]
+    #queryset = Customer.objects.only('id', 'last_name')[:25]
     
-    query
+    #queryset =Product.objects.select_related('promotions').select_related('collection').all()
+    #{{ product.collection.title }}
+    
+    #queryset = Customer.objects.prefetch_related('collection').all()
+    
+    #queryset = Customer.objects.select_related('collection__someOtherField').all()
+    
+    #queryset = Order.objects.select_related('Customer').order_by('-placed_at')[:5]
+    
+    #{{ order.id }}  - {{ order.customer.first_name }}
     
     
     # for product in query_set:
