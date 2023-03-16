@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Customer
-from django.db.models import Q, F
+from django.db.models import Q, F, Func
 from django.db.models import Value
+from django.db.model.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg
 
 # Create your views here.
@@ -61,6 +62,16 @@ from django.db.models.aggregates import Count, Max, Min, Avg
     
     
 def index(request):
-    queryset = Customer.objects.annotate(is_new=Value(True))
+    #queryset = Customer.objects.annotate(is_new=Value(True))# we create a new field in the database is_new
+   # queryset = Customer.objects.annotate(new_id=F('id') + 1)
+    # queryset = Customer.objects.annotate(
+    #     #concatinate
+    #     full_name = Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT')
+    # )
+    
+    queryset = Customer.objects.annotate(
+        #concatinate
+        full_name = Concat('first_name', Value(' '), 'last_name')
+    )
     
     return render(request, 'playground/hello.htm', {'customers': list(queryset) })
