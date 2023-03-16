@@ -6,6 +6,10 @@ from django.db.models import Value
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg
 
+from django.contrib.contenttypes.models import ContentType
+from store.models import Product
+from tags.models import TaggedItem
+
 # Create your views here.
 
 
@@ -75,11 +79,16 @@ def index(request):
     # )
     
     # queryset = Customer.objects.annotate(
-    #     orders_count=Count('order')
+    #     orders_count=Count('order'))
+    
+    # discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
+    # queryset = Customer.objects.annotate(
+    #     dicounted_price=discounted_price
     # )
     
-    discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
-    queryset = Customer.objects.annotate(
-        dicounted_price=discounted_price
-    )
+    # content_type = ContentType.objects.get_for_model(Product)
+    # queryset = TaggedItem.objects.selected_related('tag').filter(
+    #     content_type=content_type,
+    #     object_id=1
+    # )
     return render(request, 'playground/hello.htm', {'customers': list(queryset) })
