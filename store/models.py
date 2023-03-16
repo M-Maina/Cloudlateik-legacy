@@ -59,7 +59,7 @@ class Order(models.Model):
     
     
 class OrderItem(models.Model):
-    #orderitem_set__product for reverse relationship or you can set related name
+    #orderitem_set__product for reverse relationship or you can set related
     order = models.ForeignKey(Order, on_delete=models.PROTECT, )#related_name='items'
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
