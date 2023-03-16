@@ -7,7 +7,7 @@ from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg
 
 from django.contrib.contenttypes.models import ContentType
-from store.models import Product
+from store.models import Product, Collection
 from tags.models import TaggedItem
 
 # Create your views here.
@@ -91,4 +91,11 @@ def index(request):
     #     content_type=content_type,
     #     object_id=1
     # )
+    
+    
+    # collection = Collection()
+    # collection.title = 'Video Games'
+    # collection.featured_product = Product(pk=1)
+    # collection.save()
+    #collection.featured_product_id = 1
     return render(request, 'playground/hello.htm', {'customers': list(queryset) })
