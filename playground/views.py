@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Customer
-from django.db.models import Q, F, Func, Count
+from django.db.models import Q, F, Func, Count, ExpressionWrapper
 from django.db.models import Value
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg
@@ -74,8 +74,12 @@ def index(request):
     #     full_name = Concat('first_name', Value(' '), 'last_name')
     # )
     
-    queryset = Customer.objects.annotate(
-        orders_count=Count('order')
-    )
+    # queryset = Customer.objects.annotate(
+    #     orders_count=Count('order')
+    # )
     
+    discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
+    queryset = Customer.objects.annotate(
+        dicounted_price=discounted_price
+    )
     return render(request, 'playground/hello.htm', {'customers': list(queryset) })
