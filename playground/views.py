@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Customer
 from django.db.models import Q, F
+from django.db.models import Value
+from django.db.models.aggregates import Count, Max, Min, Avg
 
 # Create your views here.
 
 
-def index(request):
+#def index(request):
+    #queryset = Customer.objects.aggregate(count=Count('id'))
     #customer = Customer.objects.filter(Customer.email)
     
     #To obtain greater than in queries eg price__gt=20, price__lt=20, price__eq=20
@@ -48,7 +51,16 @@ def index(request):
     
     #{{ order.id }}  - {{ order.customer.first_name }}
     
+    #queryset = Order.objects.select_related('Customer').prefetch_related('').order_by('-placed_at')[:5]
     
     # for product in query_set:
     #     print(product)
-    return render(request, 'playground/hello.htm', {'customers': queryset })
+    
+     
+    #return render(request, 'playground/hello.htm', {'customers': queryset })
+    
+    
+def index(request):
+    queryset = Customer.objects.annotate(is_new=Value(True))
+    
+    return render(request, 'playground/hello.htm', {'customers': list(queryset) })
