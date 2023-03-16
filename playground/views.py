@@ -98,4 +98,4 @@ def index(request):
     # collection.featured_product = Product(pk=1)
     # collection.save()
     #collection.featured_product_id = 1
-    return render(request, 'playground/hello.htm', {'customers': list(queryset) })
+    return render(request, 'playground/hello.htm')
