@@ -1,0 +1,17 @@
+name: 0 - Run Everything
+
+
+on:
+  workflow_dispatch:
+  push:
+     branches: [ main ]
+
+jobs:
+  test_django:
+     uses: ./.github/workflows/test-django-mysql.yaml
+     secrets:
+        DJANGO_SECRET_KEY: "{{ secrets.DJANGO_SECRET_KEY }}" #Gets secrets from the other workflow
+
+  build_django:
+     needs: test_django
+     uses: ./.github/workflows/container.yaml

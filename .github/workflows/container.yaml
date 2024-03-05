@@ -1,0 +1,26 @@
+name: 2 - Build App Image
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    
+
+jobs:
+  docker:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+       - name: Setup QEMU
+         uses: docker/setup-qemu-action@v1
+       - name: Setup Docker Buildx
+         uses: docker/setup-buildx-action@v1
+       - name: Build Container Image
+         run: |
+            docker build -f Dockerfile -t myproj .
+       - name: Login to Docker Hub
+         run: |
+           echo "needs a login"
+       - name: Push Docker Image
+         run: |
+           echo "needs a Push"
